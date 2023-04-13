@@ -1,5 +1,5 @@
 locals {
-  enabled = module.this.enabled && (length(var.gateway_vpc_endpoints) + length(var.interface_vpc_endpoints) > 0)
+  enabled = module.context.enabled && (length(var.gateway_vpc_endpoints) + length(var.interface_vpc_endpoints) > 0)
 
   # Because route table ID may not be known at plan time, we cannot use it as a key
   route_table_associations_list = flatten([for k, v in var.gateway_vpc_endpoints : [
@@ -72,7 +72,7 @@ module "gateway_endpoint_label" {
   for_each   = local.enabled ? data.aws_vpc_endpoint_service.gateway_endpoint_service : {}
   attributes = [each.key]
 
-  context = module.this.context
+  context = module.context.self
 }
 
 module "interface_endpoint_label" {
@@ -82,7 +82,7 @@ module "interface_endpoint_label" {
   for_each   = local.enabled ? data.aws_vpc_endpoint_service.interface_endpoint_service : {}
   attributes = [each.key]
 
-  context = module.this.context
+  context = module.context.self
 }
 
 resource "aws_vpc_endpoint" "gateway_endpoint" {

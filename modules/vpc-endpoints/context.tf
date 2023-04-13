@@ -10,14 +10,14 @@
 #
 # curl -sL https://raw.githubusercontent.com/cloudposse/terraform-null-label/master/exports/context.tf -o context.tf
 #
-# Modules should access the whole context as `module.this.context`
+# Modules should access the whole context as `module.context.self`
 # to get the input variables with nulls for defaults,
-# for example `context = module.this.context`,
-# and access individual variables as `module.this.<var>`,
+# for example `context = module.context.self`,
+# and access individual variables as `module.context.<var>`,
 # with final values filled in.
 #
-# For example, when using defaults, `module.this.context.delimiter`
-# will be null, and `module.this.delimiter` will be `-` (hyphen).
+# For example, when using defaults, `module.context.self.delimiter`
+# will be null, and `module.context.delimiter` will be `-` (hyphen).
 #
 
 module "this" {

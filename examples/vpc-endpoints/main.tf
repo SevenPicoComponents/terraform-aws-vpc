@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  enabled    = module.this.enabled
+  enabled    = module.context.enabled
   interfaces = ["ec2", "kinesis"]
 
   gateway_vpc_endpoints = {
@@ -53,7 +53,7 @@ module "vpc" {
   ipv4_primary_cidr_block  = "172.17.0.0/16"
   internet_gateway_enabled = false
 
-  context = module.this.context
+  context = module.context.self
 }
 
 resource "aws_route_table" "other" {
@@ -68,7 +68,7 @@ module "vpc_endpoints" {
   gateway_vpc_endpoints   = local.gateway_vpc_endpoints
   interface_vpc_endpoints = local.interface_vpc_endpoints
 
-  context = module.this.context
+  context = module.context.self
 }
 
 
@@ -84,7 +84,7 @@ module "subnets" {
   nat_gateway_enabled    = false
   nat_instance_enabled   = false
 
-  context = module.this.context
+  context = module.context.self
 }
 
 module "endpoint_security_groups" {
@@ -110,5 +110,5 @@ module "endpoint_security_groups" {
 
   allow_all_egress = true
 
-  context = module.this.context
+  context = module.context.self
 }

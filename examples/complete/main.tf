@@ -24,7 +24,7 @@ module "vpc" {
   default_route_table_no_routes   = var.default_route_table_no_routes
   default_network_acl_deny_all    = var.default_network_acl_deny_all
 
-  context = module.this.context
+  context = module.context.self
 }
 
 module "subnets" {
@@ -38,7 +38,7 @@ module "subnets" {
   nat_gateway_enabled  = false
   nat_instance_enabled = false
 
-  context = module.this.context
+  context = module.context.self
 }
 
 # Verify that a disabled VPC generates a plan without errors
@@ -49,5 +49,5 @@ module "vpc_disabled" {
   ipv4_primary_cidr_block          = "172.16.0.0/16"
   assign_generated_ipv6_cidr_block = true
 
-  context = module.this.context
+  context = module.context.self
 }

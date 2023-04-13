@@ -1,5 +1,5 @@
 locals {
-  enabled = module.this.enabled
+  enabled = module.context.enabled
 
   default_adoption_tags = merge(module.label.tags, {
     Name = join(module.label.delimiter, [module.label.id, "default"])
@@ -24,7 +24,7 @@ module "label" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
 
-  context = module.this.context
+  context = module.context.self
 }
 
 resource "aws_vpc" "default" {

@@ -6,7 +6,7 @@ module "vpc" {
   source     = "../../"
   cidr_block = "172.16.0.0/16"
 
-  context = module.this.context
+  context = module.context.self
 }
 
 module "subnets" {
@@ -20,7 +20,7 @@ module "subnets" {
   nat_gateway_enabled  = false
   nat_instance_enabled = false
 
-  context = module.this.context
+  context = module.context.self
 }
 
 # Verify that a disabled VPC generates a plan without errors
@@ -30,5 +30,5 @@ module "vpc_disabled" {
 
   cidr_block = "172.16.0.0/16"
 
-  context = module.this.context
+  context = module.context.self
 }
